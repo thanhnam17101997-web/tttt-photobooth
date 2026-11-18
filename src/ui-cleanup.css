@@ -1,0 +1,329 @@
+/* Strip the invented decoration and explanatory copy. The photo and sticker choices do the talking. */
+.app-shell header {
+  align-items: center !important;
+  margin: 0 4px 18px !important;
+}
+
+.brand-logo {
+  width: 104px !important;
+  height: 44px !important;
+  margin: 0 !important;
+}
+
+.text-button,
+.edit-actions button {
+  border-radius: 12px !important;
+  rotate: none !important;
+  box-shadow: none !important;
+}
+
+.tray {
+  border-radius: 22px !important;
+}
+
+.editor + .tray {
+  margin-top: 12px;
+}
+
+.stage-wrap {
+  position: relative;
+}
+
+
+.sticker-control {
+  position: absolute;
+  z-index: 2;
+  width: 30px;
+  height: 30px;
+  border: 1.5px solid rgba(255,255,255,.92);
+  border-radius: 50%;
+  background: #4d285f;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1;
+  box-shadow: 0 2px 6px rgba(15, 0, 24, .3);
+}
+
+.sticker-control::after {
+  content: '';
+  position: absolute;
+  inset: -7px;
+}
+
+.sticker-control.delete {
+  background: #8c2358;
+}
+
+.sticker-control.transform-grip {
+  background: #6b428d;
+  touch-action: none;
+  cursor: nwse-resize;
+}
+
+.primary {
+  min-height: 52px !important;
+  border: 1px solid rgba(255, 255, 255, .75) !important;
+  border-radius: 14px !important;
+  background: linear-gradient(180deg, #fff3e8 0%, #f9c5dd 100%) !important;
+  box-shadow: 0 8px 20px rgba(16, 0, 30, .24), inset 0 2px 5px rgba(255, 255, 255, .62) !important;
+  color: #5e2853 !important;
+  rotate: none !important;
+}
+
+.sticker-grid .emoji-tile,
+.sticker-grid .emoji-tile:nth-child(3n + 1),
+.sticker-grid .emoji-tile:nth-child(3n + 2),
+.sticker-grid .emoji-tile:nth-child(3n) {
+  rotate: none !important;
+}
+
+.sticker-grid .sprite-tile {
+  min-height: 54px !important;
+  border: 1px solid rgba(122, 60, 110, .09);
+  border-radius: 15px;
+  background: rgba(255, 255, 255, .32);
+}
+
+.tray .sticker-grid {
+  max-height: min(30svh, 270px);
+  overflow-y: auto;
+  padding: 2px 3px 4px;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+
+.sticker-grid .sprite-tile:active {
+  background: #f0d5ec;
+  transform: scale(.92);
+}
+
+.sticker-preview { width: 40px; height: 40px; object-fit: contain; pointer-events: none; }
+
+.status,
+.header-note,
+.tray-intro,
+.gesture-hint {
+  display: none !important;
+}
+
+@media (min-width: 481px) {
+  .tray .sticker-grid { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+}
+
+@media (max-width: 480px) {
+  .tray .sticker-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    max-height: min(27svh, 235px);
+  }
+}
+
+/* Story-editor mode: tools stay out of the photo until the sticker sheet is called. */
+.story-editor {
+  width: min(100%, 520px) !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+.story-editor .editor {
+  display: grid;
+  min-height: 100svh;
+  margin: 0;
+  padding: max(14px, env(safe-area-inset-top)) 14px calc(14px + env(safe-area-inset-bottom));
+  place-items: center;
+}
+
+.story-editor .stage-wrap {
+  width: 100%;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.story-editor .photo-stage {
+  width: 100% !important;
+  max-height: calc(100svh - 28px) !important;
+  border-radius: 0 !important;
+  box-shadow: 0 18px 34px rgba(5, 0, 28, .38) !important;
+}
+
+.story-tools {
+  position: absolute;
+  z-index: 8;
+  top: max(18px, env(safe-area-inset-top));
+  right: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.story-tool {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  overflow: hidden;
+  border: 1.5px solid rgba(255, 235, 252, .9);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 20%, rgba(255, 255, 255, .82) 0 5%, rgba(255, 220, 244, .24) 17%, transparent 43%),
+    linear-gradient(145deg, rgba(255, 111, 190, .93), rgba(105, 33, 121, .94));
+  color: #fff9ef;
+  font-size: 25px;
+  font-weight: 800;
+  line-height: 1;
+  box-shadow: 0 5px 0 rgba(58, 11, 67, .6), 0 9px 19px rgba(12, 0, 29, .36), inset 0 1px 1px rgba(255, 255, 255, .72);
+  backdrop-filter: blur(10px) saturate(135%);
+}
+
+.story-tool::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 9px;
+  width: 25px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .31);
+  filter: blur(1px);
+  rotate: -28deg;
+  pointer-events: none;
+}
+
+.story-tool:active { transform: translateY(3px) scale(.94); box-shadow: 0 2px 0 rgba(58, 11, 67, .6), 0 5px 12px rgba(12, 0, 29, .32), inset 0 1px 1px rgba(255, 255, 255, .72); }
+
+.story-tool.story-export {
+  background:
+    radial-gradient(circle at 32% 20%, rgba(255, 255, 255, .92) 0 5%, rgba(255, 249, 211, .36) 17%, transparent 43%),
+    linear-gradient(145deg, #ffdc75, #ffad53 58%, #ec7e70);
+  border-color: rgba(255, 249, 225, .96);
+  color: #45134c;
+  font-size: 28px;
+  box-shadow: 0 5px 0 rgba(126, 50, 74, .55), 0 9px 19px rgba(12, 0, 29, .36), inset 0 1px 1px rgba(255, 255, 255, .86);
+}
+
+.story-tool.story-stickers img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  margin: auto;
+  filter: drop-shadow(0 2px 1px rgba(54, 8, 65, .38));
+}
+
+.story-sheet {
+  position: absolute;
+  z-index: 12;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  height: min(66svh, 650px);
+  padding: 10px 16px calc(20px + env(safe-area-inset-bottom)) !important;
+  border: 1px solid rgba(255, 220, 249, .72) !important;
+  border-bottom: 0 !important;
+  border-radius: 30px 30px 0 0 !important;
+  background:
+    radial-gradient(ellipse at 50% -18%, rgba(220, 120, 246, .48), transparent 43%),
+    linear-gradient(160deg, rgba(64, 16, 83, .985), rgba(40, 8, 66, .99) 74%, rgba(25, 5, 48, .99)) !important;
+  box-shadow: 0 -15px 42px rgba(0, 0, 0, .36), inset 0 2px 0 rgba(255, 255, 255, .38) !important;
+  color: #fff;
+  transform: translateY(105%);
+  transition: transform .26s cubic-bezier(.22, .8, .25, 1);
+  pointer-events: none;
+}
+
+.story-sheet.is-open {
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.sheet-handle {
+  width: 52px;
+  height: 5px;
+  margin: 0 auto 13px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255, 193, 241, .94), rgba(255, 255, 255, .94), rgba(255, 193, 241, .94));
+  box-shadow: 0 1px 7px rgba(255, 173, 238, .55);
+}
+
+.story-sheet .sheet-heading {
+  display: grid !important;
+  grid-template-columns: 48px 1fr 48px;
+  align-items: center !important;
+  min-height: 48px;
+  margin: 0 0 14px !important;
+}
+
+.story-sheet .sheet-heading h2 {
+  margin: 0;
+  color: #fff0ce;
+  font-size: 23px;
+  font-weight: 800;
+  text-shadow: 0 2px 8px rgba(255, 131, 218, .38);
+  text-align: center;
+}
+
+.story-sheet .sheet-heading button {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 220, 250, .45);
+  border-radius: 50%;
+  background: rgba(116, 43, 132, .52);
+  color: #fff6fd;
+  font-size: 34px;
+  line-height: 1;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .3);
+}
+
+.story-sheet .sheet-heading button:last-child { font-size: 30px; }
+
+.story-sheet .sticker-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  max-height: calc(100% - 84px) !important;
+  padding: 4px 1px 12px;
+  gap: 13px !important;
+}
+
+.story-sheet .sprite-tile {
+  min-height: 66px !important;
+  border-radius: 20px;
+  background: radial-gradient(circle at 50% 42%, rgba(255, 255, 255, .11), transparent 64%);
+  transition: transform .14s ease, background .14s ease;
+}
+
+.story-sheet .sprite-tile:active { transform: scale(.88); background: rgba(255, 202, 240, .22); }
+.story-sheet .sticker-preview { width: 53px; height: 53px; filter: drop-shadow(0 4px 4px rgba(11, 0, 29, .35)); }
+
+.trash-drop {
+  position: fixed;
+  z-index: 20;
+  top: auto !important;
+  bottom: calc(22px + env(safe-area-inset-bottom));
+  left: 50% !important;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border: 1.5px solid rgba(255, 223, 248, .88);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 32% 20%, rgba(255, 255, 255, .78) 0 5%, rgba(255, 191, 229, .2) 17%, transparent 43%),
+    linear-gradient(145deg, rgba(239, 80, 152, .96), rgba(122, 24, 93, .96));
+  color: #fff;
+  transform: translateX(-50%);
+  box-shadow: 0 5px 0 rgba(68, 9, 55, .6), 0 9px 20px rgba(0, 0, 0, .28), inset 0 1px 1px rgba(255,255,255,.75);
+  pointer-events: none;
+}
+
+.trash-drop svg {
+  width: 25px;
+  height: 25px;
+  margin: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}

@@ -1,0 +1,14 @@
+node_modules/
+dist/
+
+# TypeScript build metadata / generated config output
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
+
+# Local-only configuration and system files
+.env
+.env.*
+!.env.example
+.DS_Store
+

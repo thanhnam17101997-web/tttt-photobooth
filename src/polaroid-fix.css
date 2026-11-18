@@ -1,0 +1,27 @@
+/* Must load after the invitation-derived shell styles: source images own their Polaroid framing. */
+.stage-wrap {
+  padding: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.photo-stage {
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: 0 18px 38px rgba(5, 0, 20, .45) !important;
+}
+
+.gesture-hint {
+  width: max-content;
+  max-width: 92%;
+  margin: 12px auto 3px !important;
+  padding: 7px 13px;
+  border: 2px solid #ffd560;
+  border-radius: 43% 57% 48% 52% / 55% 45% 55% 45%;
+  background: #43205b !important;
+  color: #fff7e9 !important;
+  rotate: -1deg;
+  box-shadow: 3px 4px 0 #d364ad !important;
+  text-shadow: none !important;
+}

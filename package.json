@@ -1,0 +1,25 @@
+{
+  "name": "tttt-photobooth",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "test": "vitest run",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "typescript": "latest",
+    "vite": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "vitest": "latest"
+  }
+}
