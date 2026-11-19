@@ -82,7 +82,7 @@ export default function App(){
       setHistory([initial]);
       setPosition(0);
     }catch(e){
-      setLoadError('Chưa tải được ảnh do mạng yếu chút xíu.');
+      setLoadError('Mạng hơi yếu một chút xíu, bấm thử lại để tải ảnh nhé!');
     }
   };
 
@@ -174,27 +174,109 @@ export default function App(){
       <div className="ribbons" aria-hidden="true"><i/><i/><i/></div>
       {!photo ? (
         isQrFlow ? (
-          <section className="loader card">
+          <section className="loader-card-premium">
+            <style>{`
+              .loader-card-premium {
+                background: rgba(255, 255, 255, 0.94);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border-radius: 36px;
+                border: 2px solid rgba(255, 255, 255, 0.85);
+                box-shadow: 0 24px 48px -10px rgba(18, 2, 36, 0.45), inset 0 2px 4px rgba(255, 255, 255, 0.95);
+                padding: 36px 22px 32px;
+                margin: 15vh auto 0;
+                max-width: 340px;
+                text-align: center;
+                animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+              }
+              @keyframes popIn {
+                from { opacity: 0; transform: scale(0.92) translateY(12px); }
+                to { opacity: 1; transform: scale(1) translateY(0); }
+              }
+              .status-sticker-img {
+                width: 64px;
+                height: 64px;
+                object-fit: contain;
+                margin: 0 auto 12px;
+                filter: drop-shadow(0 8px 14px rgba(235, 78, 142, 0.32));
+                animation: floatSticker 2.4s ease-in-out infinite alternate;
+              }
+              @keyframes floatSticker {
+                from { transform: translateY(0) rotate(-4deg); }
+                to { transform: translateY(-7px) rotate(4deg); }
+              }
+              .loader-title {
+                font-size: 26px !important;
+                font-weight: 800 !important;
+                letter-spacing: -0.02em;
+                margin: 0 0 8px !important;
+                background: linear-gradient(135deg, #5c1d68 0%, #ba2d6e 50%, #e04778 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                text-shadow: none !important;
+              }
+              .loader-desc {
+                font-size: 14px !important;
+                line-height: 1.5 !important;
+                color: #6d4264 !important;
+                margin: 0 0 20px !important;
+                font-weight: 600;
+              }
+              .candy-spinner {
+                width: 42px;
+                height: 42px;
+                margin: 4px auto 14px;
+                border-radius: 50%;
+                border: 3.5px solid rgba(224, 71, 120, 0.15);
+                border-top-color: #e04778;
+                border-right-color: #ff9a8b;
+                animation: spinCandy 0.85s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+              }
+              @keyframes spinCandy {
+                to { transform: rotate(360deg); }
+              }
+              .btn-candy-retry {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                background: linear-gradient(135deg, #ff6584 0%, #f72585 100%);
+                color: #fff !important;
+                border: none;
+                border-radius: 999px;
+                padding: 13px 30px;
+                font-size: 15px;
+                font-weight: 700;
+                letter-spacing: 0.01em;
+                box-shadow: 0 10px 22px rgba(247, 37, 133, 0.38), inset 0 2px 2px rgba(255, 255, 255, 0.5);
+                cursor: pointer;
+                transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.18s;
+              }
+              .btn-candy-retry:active {
+                transform: translateY(3px) scale(0.97);
+                box-shadow: 0 4px 10px rgba(247, 37, 133, 0.3);
+              }
+              .retry-icon {
+                font-size: 17px;
+                line-height: 1;
+                display: inline-block;
+              }
+            `}</style>
             {loadError ? (
               <>
-                <h2>Ting Ting...</h2>
-                <p style={{ margin: '8px 0 20px', color: '#8a3b72' }}>{loadError}</p>
-                <button className="primary" onClick={()=>void openUrl(url)}>Thử lại</button>
+                <img src="/stickers-clean/s01-07.png" alt="heart" className="status-sticker-img" />
+                <h2 className="loader-title">Ting Ting...</h2>
+                <p className="loader-desc">{loadError}</p>
+                <button className="btn-candy-retry" onClick={()=>void openUrl(url)}>
+                  <span className="retry-icon">↺</span> Thử lại ngay
+                </button>
               </>
             ) : (
               <>
-                <div style={{
-                  width: '38px',
-                  height: '38px',
-                  margin: '0 auto 16px',
-                  border: '3px solid rgba(84, 45, 73, 0.2)',
-                  borderTopColor: '#542d49',
-                  borderRadius: '50%',
-                  animation: 'spin 0.8s linear infinite'
-                }} />
-                <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-                <h2>Ting Ting...</h2>
-                <p>Đợi một chút xíu</p>
+                <img src="/stickers-clean/s01-01.png" alt="star" className="status-sticker-img" />
+                <div className="candy-spinner" />
+                <h2 className="loader-title">Ting Ting...</h2>
+                <p className="loader-desc">Đợi một chút xíu, ảnh đang tới nè ✨</p>
               </>
             )}
           </section>
