@@ -189,8 +189,8 @@ export default function App(){
               animation: 'spin 0.8s linear infinite'
             }} />
             <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-            <h2>Đang tải ảnh Polaroid…</h2>
-            <p>{message === 'Chọn một tấm ảnh, rồi thêm chút ting ting của mày vào đó.' ? 'Đợi một chút xíu, tụi mình đang mang ảnh của bạn tới nè ✨' : message}</p>
+            <h2>Ting Ting...</h2>
+            <p>Đợi một chút xíu</p>
           </section>
         ) : (
           <section className="loader card">
