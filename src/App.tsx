@@ -17,7 +17,7 @@ const packs: { id: string; label: string; stickers: CatalogSticker[] }[] = [
 const stickerToolPreviews = ['/stickers-clean/s01-01.png', '/stickers-clean/s01-04.png', '/stickers-clean/s01-10.png', '/stickers-clean/s03-09.png'];
 const allowedHost = (url:string) => { try { const host=new URL(url).hostname; return host==='res.cloudinary.com'||host===location.hostname; } catch { return false; } };
 const initial: EditorState = { stickers: [], selectedId: null };
-function loadImage(url:string, name:string, revoke=false):Promise<Photo>{return new Promise((resolve,reject)=>{const image=new Image();image.crossOrigin='anonymous';image.onload=()=>resolve({url,image,width:image.naturalWidth,height:image.naturalHeight,name,revoke});image.onerror=()=>reject(new Error('Không tải được ảnh. URL phải tồn tại và cho phép CORS để xuất PNG.'));image.src=url;});}
+function loadImage(url:string, name:string, revoke=false):Promise<Photo>{return new Promise((resolve,reject)=>{const image=new Image();image.crossOrigin='anonymous';image.onload=()=>resolve({url,image,width:image.naturalWidth,height:image.naturalHeight,name,revoke});image.onerror=()=>reject(new Error('Không tải được ảnh.'));image.src=url;});}
 
 export default function App(){
   const [photo,setPhoto]=useState<Photo|null>(null);
@@ -25,11 +25,11 @@ export default function App(){
   const [history,setHistory]=useState<EditorState[]>([initial]);
   const [position,setPosition]=useState(0);
   const [url,setUrl]=useState('');
-  const [isLoadingAutoPhoto, setIsLoadingAutoPhoto] = useState<boolean>(() => {
+  const [loadError, setLoadError]=useState<string | null>(null);
+  const isQrFlow = useMemo(() => {
     if (typeof window === 'undefined') return false;
-    const query = new URLSearchParams(window.location.search).get('image');
-    return Boolean(query && allowedHost(query));
-  });
+    return Boolean(new URLSearchParams(window.location.search).get('image'));
+  }, []);
   const [message,setMessage]=useState('Chọn một tấm ảnh, rồi thêm chút ting ting của mày vào đó.');
   const [exporting,setExporting]=useState(false);
   const [imageVersion,setImageVersion]=useState(0);
@@ -45,8 +45,7 @@ export default function App(){
       setUrl(query);
       void openUrl(query);
     } else if(query) {
-      setIsLoadingAutoPhoto(false);
-      setMessage('URL chỉ chấp nhận Cloudinary delivery URL trong bản V1.');
+      setLoadError('Link ảnh không đúng định dạng Cloudinary.');
     }
   },[]);
 
@@ -71,22 +70,19 @@ export default function App(){
   },[position]);
 
   const openUrl=async(value=url)=>{
+    setLoadError(null);
     if(!allowedHost(value)){
-      setMessage('Dùng Cloudinary delivery URL hoặc chọn file trên máy.');
-      setIsLoadingAutoPhoto(false);
+      setLoadError('Link ảnh không hợp lệ.');
       return;
     }
-    setMessage('Đợi một chút, ảnh đang tới…');
     try{
       const p=await loadImage(value,'Cloudinary photo');
       setPhoto(p);
       setState(initial);
       setHistory([initial]);
       setPosition(0);
-      setMessage('Tấm ảnh này sẵn sàng để nghịch rồi.');
     }catch(e){
-      setMessage((e as Error).message);
-      setIsLoadingAutoPhoto(false);
+      setLoadError('Chưa tải được ảnh do mạng yếu chút xíu.');
     }
   };
 
@@ -177,20 +173,30 @@ export default function App(){
     <main className={`app-shell${photo?' story-editor':''}`}>
       <div className="ribbons" aria-hidden="true"><i/><i/><i/></div>
       {!photo ? (
-        isLoadingAutoPhoto ? (
+        isQrFlow ? (
           <section className="loader card">
-            <div style={{
-              width: '38px',
-              height: '38px',
-              margin: '0 auto 16px',
-              border: '3px solid rgba(84, 45, 73, 0.2)',
-              borderTopColor: '#542d49',
-              borderRadius: '50%',
-              animation: 'spin 0.8s linear infinite'
-            }} />
-            <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-            <h2>Ting Ting...</h2>
-            <p>Đợi một chút xíu</p>
+            {loadError ? (
+              <>
+                <h2>Ting Ting...</h2>
+                <p style={{ margin: '8px 0 20px', color: '#8a3b72' }}>{loadError}</p>
+                <button className="primary" onClick={()=>void openUrl(url)}>Thử lại</button>
+              </>
+            ) : (
+              <>
+                <div style={{
+                  width: '38px',
+                  height: '38px',
+                  margin: '0 auto 16px',
+                  border: '3px solid rgba(84, 45, 73, 0.2)',
+                  borderTopColor: '#542d49',
+                  borderRadius: '50%',
+                  animation: 'spin 0.8s linear infinite'
+                }} />
+                <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+                <h2>Ting Ting...</h2>
+                <p>Đợi một chút xíu</p>
+              </>
+            )}
           </section>
         ) : (
           <section className="loader card">
