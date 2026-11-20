@@ -158,6 +158,9 @@
 }
 
 .story-tool {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   position: relative;
   width: 50px;
   height: 50px;
@@ -174,6 +177,12 @@
   line-height: 1;
   box-shadow: 0 5px 0 rgba(58, 11, 67, .6), 0 9px 19px rgba(12, 0, 29, .36), inset 0 1px 1px rgba(255, 255, 255, .72);
   backdrop-filter: blur(10px) saturate(135%);
+}
+
+.story-tool svg {
+  display: block !important;
+  margin: auto !important;
+  pointer-events: none;
 }
 
 .story-tool::after {
@@ -323,16 +332,36 @@
 }
 
 .story-sheet .sprite-tile {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  margin: 0 !important;
   min-height: 66px !important;
-  border-radius: 20px;
-  background: radial-gradient(circle at 50% 42%, rgba(255, 255, 255, .11), transparent 64%);
-  transition: transform .14s ease, background .14s ease;
+  border: 0 !important;
+  border-radius: 20px !important;
+  background: radial-gradient(circle at 50% 42%, rgba(255, 255, 255, .11), transparent 64%) !important;
+  transition: transform .14s ease, background .14s ease !important;
 }
 
-.story-sheet .sprite-tile:active { transform: scale(.88); background: rgba(255, 202, 240, .22); }
-.story-sheet .sticker-preview { width: 53px; height: 53px; filter: drop-shadow(0 4px 4px rgba(11, 0, 29, .35)); }
+.story-sheet .sprite-tile:active {
+  transform: scale(.88) !important;
+  background: rgba(255, 202, 240, .22) !important;
+}
+
+.story-sheet .sticker-preview {
+  display: block !important;
+  width: 52px !important;
+  height: 52px !important;
+  object-fit: contain !important;
+  margin: auto !important;
+  filter: drop-shadow(0 4px 4px rgba(11, 0, 29, .35)) !important;
+}
 
 .trash-drop {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   position: fixed;
   z-index: 20;
   top: auto !important;
@@ -353,9 +382,10 @@
 }
 
 .trash-drop svg {
-  width: 25px;
-  height: 25px;
-  margin: 13px;
+  width: 26px !important;
+  height: 26px !important;
+  margin: 0 !important;
+  display: block !important;
   fill: none;
   stroke: currentColor;
   stroke-linecap: round;
